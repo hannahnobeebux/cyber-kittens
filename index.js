@@ -71,9 +71,6 @@ app.post("/register", setUser, async (req,res, next) => {
     res.send({token: token,
       message: "success"});
 
-    // const {username, password} = req.body; 
-    // const { id } = await User.create({username, password})
-    // res.sendStatus(200)
 
   } catch (error) {
     console.log(error); 
@@ -120,25 +117,11 @@ app.get("/kittens/:id", async (req, res, next) => {
     } else if (req.params.id != userData.id) {
       res.sendStatus(401); 
     } else {
-      // const kittenToFind = await Kitten.findOne({where: {ownerId: userData.id}}); 
-      // return res.send(kittenToFind.toJSON())
-
+  
       const {age, color, name} = await Kitten.findOne({ where: { ownerId: userData.id } })
       const clean = { age: age, color: color, name: name }
       res.send(clean)
-    //   const token = jwt.sign(kittenToFind.username, process.env.SIGNING_SECRET); 
 
-    //   if (!token) {
-    //     res.sendStatus(401); 
-    //     next()
-    //   } else if (kittenToFind.ownerId !== req.user.id){
-    //     res.sendStatus(401); 
-    //     next()
-    //   }
-    //   else {
-    //     res.send(200); 
-    //   }
-    //   res.send(kittenToFind.toJSON())
     }
     
   } catch (error) {
